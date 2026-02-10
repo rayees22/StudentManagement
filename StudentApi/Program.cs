@@ -1,43 +1,31 @@
-using Microsoft.EntityFrameworkCore;
-using StudentApi.Data;
+﻿using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// --------------------
-// Services
-// --------------------
 
 // Controllers
 builder.Services.AddControllers();
 
-// Entity Framework Core (SQL Server)
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")
-    )
-);
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder => builder.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+});
 
-// Swagger / OpenAPI
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// CORS (we will use this later for frontend)
-builder.Services.AddCors(options =>
+// DbContext (TiDB)
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy
-            .AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
+    var cs = builder.Configuration.GetConnectionString("TiDb");
+    options.UseMySql(cs, ServerVersion.AutoDetect(cs));
 });
 
 var app = builder.Build();
-
-// --------------------
-// Middleware
-// --------------------
 
 if (app.Environment.IsDevelopment())
 {
@@ -46,11 +34,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseCors("AllowFrontend");
-
+app.UseCors("AllowAll");
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
