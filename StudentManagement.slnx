@@ -2,5 +2,5 @@
   <Folder Name="/Solution Items/">
     <File Path="Dockerfile" />
   </Folder>
-  <Project Path="StudentApi/StudentApi.csproj" />
+  <Project Path="Student/Student.csproj" />
 </Solution>
