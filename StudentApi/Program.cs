@@ -27,14 +27,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
+app.UseSwagger();
+app.UseSwaggerUI();
+
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
     app.UseHttpsRedirection();
 }
+
 app.UseCors("AllowAll");
 app.UseAuthorization();
 app.MapControllers();
+
+app.MapGet("/", () => "Student Management API is running!");
 
 app.Run();
