@@ -4,8 +4,6 @@ services:
     env: docker
     region: singapore # Optional: defaults to Oregon, change as needed
     plan: free # Optional: defaults to starter
-    buildCommand: docker build -t student .
-    startCommand: ./student
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production

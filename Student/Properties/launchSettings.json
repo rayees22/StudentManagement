@@ -4,13 +4,8 @@
     "Student": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-
-      // ✅ CHANGE THIS TO TRUE
       "launchBrowser": true,
-
-      // ✅ THIS IS WHAT OPENS AUTOMATICALLY
       "launchUrl": "swagger",
-
       "applicationUrl": "https://localhost:7125;http://localhost:5239",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
