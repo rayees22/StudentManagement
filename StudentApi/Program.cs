@@ -40,6 +40,6 @@ app.UseCors("AllowAll");
 app.UseAuthorization();
 app.MapControllers();
 
-app.MapGet("/", () => "Student Management API is running!");
+app.MapGet("/", () => "Student Management API is running! (v2)");
 
 app.Run();
