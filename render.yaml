@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: student-management-api
+    env: docker
+    region: singapore # Optional: defaults to Oregon, change as needed
+    plan: free # Optional: defaults to starter
+    buildCommand: docker build -t student-api .
+    startCommand: ./student-api
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
